@@ -1,5 +1,6 @@
 "use client";
 import Graph, { CustomFilterProps } from "./components/Graph";
+import GraphDisplay from "./components/GraphDisplay";
 
 const dataSet = [
   { label: "20", value: 20 },
@@ -30,9 +31,13 @@ const DataDisplay = ({ graphFilter }: CustomFilterProps) => {
   );
 };
 
+const ComponentForDisplay = ({ filter }: { filter: boolean }) => {
+  return <div>Demo {JSON.stringify(filter)}</div>;
+};
+
 export default function Home() {
   return (
-    <div className="">
+    <div>
       <Graph heading="Pie" filter={CustomFilter} filterInitial={10}>
         {(graphFilter, setGraphFilter) => {
           return (
@@ -43,7 +48,9 @@ export default function Home() {
           );
         }}
       </Graph>
-      {/* <Graph type={"Bar"} dataDisplay={DataDisplay} /> */}
+      <GraphDisplay data={[]}>
+        {(filter) => <ComponentForDisplay filter={filter} />}
+      </GraphDisplay>
     </div>
   );
 }
